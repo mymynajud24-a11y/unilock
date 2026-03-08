@@ -3,41 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>UniLock Hub Booking</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
-  <style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 0; color: #2c3e50; }
-    header.hero { background: url('campus_banner.jpg') center/cover no-repeat; height: 300px; color: white; }
-    header.hero .overlay { background: rgba(0,0,0,0.5); height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-    header.hero h1 { font-size: 2.4em; margin: 0; }
-    header.hero p { font-size: 1.2em; margin-top: 10px; }
-
-    #actions { text-align: center; margin: 30px; }
-    .primary-btn, .secondary-btn { padding: 14px 24px; border: none; border-radius: 6px; margin: 10px; cursor: pointer; font-size: 16px; transition: all 0.2s ease; }
-    .primary-btn { background: #27ae60; color: white; } .primary-btn:hover { background: #219150; }
-    .secondary-btn { background: #2980b9; color: white; } .secondary-btn:hover { background: #1f6699; }
-
-    #locations { display: flex; justify-content: center; gap: 30px; margin: 20px; flex-wrap: wrap; }
-    .card { background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 280px; text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
-    .card img { width: 100%; border-radius: 12px 12px 0 0; }
-    .badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 0.8em; }
-    .badge.available { background: #27ae60; color: white; } .badge.full { background: #e74c3c; color: white; }
-
-    #lockers { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 12px; margin: 30px; }
-    .locker-btn { display: flex; flex-direction: column; align-items: center; background: #27ae60; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
-    .locker-btn img { width: 40px; margin-bottom: 8px; }
-    .locker-btn:hover { transform: scale(1.05); }
-    .locker-btn.selected { background: #2980b9; }
-    .locker-btn:disabled { background: #bdc3c7; cursor: not-allowed; }
-
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
-    .modal-content { background: white; margin: 8% auto; padding: 25px; width: 350px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .modal-content input { width: 100%; padding: 8px; margin: 6px 0 12px; border: 1px solid #ccc; border-radius: 4px; }
-    .close { float: right; font-size: 22px; cursor: pointer; color: #888; } .close:hover { color: #e74c3c; }
-
-    #bookingInfo { background: white; margin: 30px auto; padding: 25px; border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.15); max-width: 500px; text-align: center; }
-    #qrcode { margin: 20px auto; padding: 12px; border: 2px dashed #2c3e50; display: inline-block; }
-  </style>
 </head>
 <body>
   <!-- Hero Banner -->
@@ -101,29 +68,6 @@
     <button class="secondary-btn" onclick="cancelBooking()">Cancel Booking</button>
   </section>
 
-  <!-- Script -->
-  <script>
-    let selectedLocker = null;
-    let bookedLockers = new Set();
-
-    function showLocations() {
-      document.getElementById('locations').style.display = 'flex';
-    }
-
-    function showLockers(location) {
-      const lockers = {
-        DPT: ['D001','D002','D003','D004','D005','D006','D007','D008'],
-        Gym: ['G001','G002','G003','G004','G005','G006']
-      };
-      const lockerSection = document.getElementById('lockers');
-      lockerSection.innerHTML = lockers[location].map(id => {
-        const disabled = bookedLockers.has(id) ? 'disabled' : '';
-        return `<button id="${id}" class="locker-btn" ${disabled} onclick="bookLocker('${id}')">
-                  <img src="locker_icon.png" alt="Locker"><span>${id}</span>
-                </button>`;
-      }).join('');
-      updateAvailability(location, lockers[location]);
-    }
-
-    function updateAvailability(location, lockerList) {
-      const available = lockerList
+  <script src="script.js"></script>
+</body>
+</html>
